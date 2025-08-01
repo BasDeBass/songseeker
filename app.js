@@ -178,8 +178,6 @@ async function handleScannedLink(decodedText) {
         if (!csvCache[url]) { // Check if the URL is not in the cache
             const absoluteUrl = new URL("." + url, document.baseURI).href;
             console.log(`URL not cached, fetching CSV from URL: ${absoluteUrl}`);
-            console.log(url)
-            console.log(document.baseURI)
             const response = await fetch(absoluteUrl);
             const data = await response.text();
             csvCache[url] = parseCSV(data); // Cache the parsed CSV data using the URL as a key
@@ -227,8 +225,8 @@ async function handleScannedLink(decodedText) {
 // This function creates an <iframe> (and YouTube player) after the API code downloads.
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '300px',
-        width: '400px',
+        height: '0px',
+        width: '0px',
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -370,6 +368,22 @@ document.getElementById('startScanButton').addEventListener('click', function() 
 document.getElementById('debugButton').addEventListener('click', function() {
     handleScannedLink("https://www.hitstergame.com/de-aaaa0012/237");
     // handleScannedLink("https://rockster.brettspiel.digital/?yt=1bP-fFxAMOI");
+});
+
+document.getElementById('showIframe').addEventListener('click', function(){
+    var cb = document.getElementById('showIframe');
+    var iframe = document.getElementById('player');
+
+    // If should show iframe player
+    if(cb.checked){
+        iframe.width = '400px';
+        iframe.height = '300px';
+        return;
+    }
+
+    // Else, should hide iframe player 
+    iframe.width = '0px';
+    iframe.height = '0px';
 });
 
 document.getElementById('songinfo').addEventListener('click', function() {
