@@ -224,12 +224,13 @@ async function handleScannedLink(decodedText) {
 // This function creates an <iframe> (and YouTube player) after the API code downloads.
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-        height: '0',
-        width: '0',
+        height: '300px',
+        width: '400px',
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
-        }
+        },
+        // referrerpolicy: "no-referrer-when-downgrade"
     });
 }
 window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;

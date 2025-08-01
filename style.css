@@ -105,7 +105,7 @@ body {
 
 .settings_div {
     width: 100%;
-    position: absolute;
+    position: relative;
     bottom: 0.5rem;
     left: 0;
     padding: 0 0.5rem;
