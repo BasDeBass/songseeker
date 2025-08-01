@@ -176,13 +176,10 @@ async function handleScannedLink(decodedText) {
 
     async function getCachedCsv(url) {
         if (!csvCache[url]) { // Check if the URL is not in the cache
-            const absoluteUrl = new URL(url, document.baseURI).href;
+            const absoluteUrl = new URL("." + url, document.baseURI).href;
             console.log(`URL not cached, fetching CSV from URL: ${absoluteUrl}`);
             console.log(url)
-            console.log(absoluteUrl)
             console.log(document.baseURI)
-            console.log("------")
-            console.log(URL(url, document.baseURI))
             const response = await fetch(absoluteUrl);
             const data = await response.text();
             csvCache[url] = parseCSV(data); // Cache the parsed CSV data using the URL as a key
