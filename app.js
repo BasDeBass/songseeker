@@ -50,7 +50,7 @@ async function handleScannedLink(decodedText) {
         if (hitsterData) {
             console.log("Hitster data:", hitsterData.id, hitsterData.lang);
             try {
-                const csvContent = await getCachedCsv(`/hitster-playlists/hitster-${hitsterData.lang}.csv`);
+                const csvContent = await getCachedCsv(`/hitster-${hitsterData.lang}.csv`);
                 const youtubeLink = lookupYoutubeLink(hitsterData.id, csvContent);
                 if (youtubeLink) {
                     // Handle YouTube link obtained from the CSV
@@ -176,9 +176,8 @@ async function handleScannedLink(decodedText) {
 
     async function getCachedCsv(url) {
         if (!csvCache[url]) { // Check if the URL is not in the cache
-            const absoluteUrl = new URL(url, document.baseURI).href;
-            console.log(`URL not cached, fetching CSV from URL: ${absoluteUrl}`);
-            const response = await fetch(absoluteUrl);
+            console.log(`URL not cached, fetching CSV from URL: ${url}`);
+            const response = await fetch(url);
             const data = await response.text();
             csvCache[url] = parseCSV(data); // Cache the parsed CSV data using the URL as a key
         }
